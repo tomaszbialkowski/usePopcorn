@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const tempMovieData = [
   {
@@ -50,20 +50,9 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-const KEY = "55ca2044";
-
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
-
-  // nigdy nie rób funkcji fetch ani nie ustawiaj state w top level code - bo spowodujesz niekończącą sie pętle renderowania.
-  // setState wewnątrz returna tak jak w przypdaku componentu Search a do fetcha uzywaj useEffect, który pozwala na bezpieczne pisanie kodu z sideeffect (kontakt ze światem zewnętrznym np pobieranie danych z bazy danych lub ustawianie jakiś zmiennych)
-
-  useEffect(function () {
-    fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=shawshank`)
-      .then((res) => res.json())
-      .then((data) => setMovies(data.Search));
-  }, []); //pusta tablica przekazana po funckji ktora ma byc wykonana oznacza ze useEffect ma być uruchomiony tylko PO initial render
 
   return (
     <>
@@ -91,13 +80,14 @@ function Navbar({ children }) {
   return <nav className="nav-bar">{children}</nav>;
 }
 
-// przykład napisania componentu z uzyciem funkcji strzałkowej
-const Logo = () => (
-  <div className="logo">
-    <span role="img">🍿</span>
-    <h1>usePopcorn</h1>
-  </div>
-);
+function Logo() {
+  return (
+    <div className="logo">
+      <span role="img">🍿</span>
+      <h1>usePopcorn</h1>
+    </div>
+  );
+}
 
 function Search() {
   const [query, setQuery] = useState("");
