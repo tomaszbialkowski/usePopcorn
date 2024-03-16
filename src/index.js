@@ -7,19 +7,19 @@ import App from "./App";
 import StarRating from "./starRating";
 
 // dodanie możliwośći wyciągniecia stanu z innego componentu, do testu "exportujemy" stan ze StarRating
-function Test() {
-  const [movieRating, setMovieRating] = useState(0);
-  return (
-    <div>
-      <StarRating
-        color="lightblue"
-        maxRating={10}
-        onExportState={setMovieRating}
-      />
-      <p>this movie is {movieRating} stars rated</p>
-    </div>
-  );
-}
+// function Test() {
+//   const [movieRating, setMovieRating] = useState(0);
+//   return (
+//     <div>
+//       <StarRating
+//         color="lightblue"
+//         maxRating={10}
+//         onExportState={setMovieRating}
+//       />
+//       <p>this movie is {movieRating} stars rated</p>
+//     </div>
+//   );
+// }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
