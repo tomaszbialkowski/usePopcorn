@@ -333,7 +333,7 @@ body {
   border-radius: 50%;
   border: none;
   /* background-color: var(--color-text); */
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.7);
   color: var(--color-background-500);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
   font-family: sans-serif;
