@@ -115,6 +115,8 @@ export default function App() {
         setError("");
         return;
       }
+
+      handleCloseMovie();
       fetchMovies();
 
       // cleanup function ze zbyt wielu zapytań do bazy. jak to działa: każda zmiana query (czyli to co wpisujemy do inputu do search) wywołuje re-render, a funkcja czyszcząca jest wywoływana przed re-renderem i po wymontowaniu komponentu
@@ -323,6 +325,23 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watchedList }) {
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+
+  useEffect(
+    function () {
+      function callback(e) {
+        e.code === "Escape" && onCloseMovie();
+        console.log("closed by escape key");
+      }
+
+      document.addEventListener("keydown", callback);
+
+      //cleanup function uzywamy tutaj dlatego ze każde "otwarcie" filmu powoduje uruchomienie tego efektu, więc powstaje nagromadzenie przypiętych eventListenerów do body, nawet do filmów któe już zostały zamlniete poprzez otwarcie kolejnego filmu
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onCloseMovie]
+  );
 
   useEffect(
     function () {
